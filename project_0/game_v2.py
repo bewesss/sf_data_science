@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 def random_predict(number:int=1) -> int:
     """Рандомно угадываем число
@@ -11,13 +12,20 @@ def random_predict(number:int=1) -> int:
     """
 
     count = 0
-
+    start = 1  # минимальное число границы
+    stop = 101  # максимальное число границы
+    
     while True:
+        y = (start + stop)//2 #сокращаем область поиска числа, от 1 до 50 и от 50 до 100
         count += 1
-        predict_number = np.random.randint(1, 101) # предполагаемое число
-        if number == predict_number:
-            break # выход из цикла, если угадали
-    return(count)
+        if y == number:
+            break  # выход из цикла если угадали (радуемся)
+        elif number > y:
+            start = y  # если загаданное число больше, то берем числа больше 50
+        else:
+            stop = y # если меньше, то берем числа меньше 50
+
+    return count
 
 print(f'Количество попыток: {random_predict()}')
 def score_game(random_predict) -> int:
